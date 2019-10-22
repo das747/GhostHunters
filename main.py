@@ -6,7 +6,7 @@ from time import sleep
 from imutils.video import VideoStream
 from keras.models import load_model
 import sys
-from Bluetooth import add_client
+from Bluetooth import add_client, get_confirmation
 from bluetooth import *
 
 PORT = '/dev/cu.usbserial-A9GJJD9P'

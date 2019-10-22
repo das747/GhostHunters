@@ -13,6 +13,7 @@ def add_client(server, port, client_addr, client_name=''):
 
 def get_confirmation(client):
     client.send(1)
+    return bool(int(client.recv().decode()))
 
 
 if __name__ == '__main__':

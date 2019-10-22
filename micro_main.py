@@ -27,6 +27,12 @@ while True:
     elif 'forward' in sample:
         talk('вперёд')
         client.send("forward")
+        complete = 0
+        while not complete:
+            client.recv()
+            complete = get_confirmation()
+            client.send(complete)
+
         box_n = 0
 
     # завершение работы
