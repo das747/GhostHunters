@@ -3,6 +3,7 @@ from time import sleep
 
 COMMANDS = {'forwards': 5, 'return': 6}
 
+
 class PySerial(serial.Serial):
     def __init__(self, port, baud_rate=9600):
         try:
@@ -27,7 +28,7 @@ if __name__ == '__main__':
     port = '/dev/cu.usbserial-A9GJJD9P'
     ser = PySerial(port)
     while 1:
-        ser.write(input())
+        ser.write_int(int(input()))
         while not ser.inWaiting:
             pass
-        print(int.from_bytes(ser.read(), 'big'))
+        print(ser.read_int())
