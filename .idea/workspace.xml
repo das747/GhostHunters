@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="81ff362c-db3a-4a9b-849d-d86de43f0378" name="Default Changelist" comment="" />
+    <list default="true" id="81ff362c-db3a-4a9b-849d-d86de43f0378" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ArduinoUART.py" beforeDir="false" afterPath="$PROJECT_DIR$/ArduinoUART.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PiCamera-Digit-Recognizer-master/PiCameraApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/PiCameraApp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PiCamera-Digit-Recognizer-master/mnist_trained_model.h5" beforeDir="false" afterPath="$PROJECT_DIR$/mnist_trained_model.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/digit_recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/digit_recognizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,9 +22,14 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1S8CPIp9udN669liS9stcZiRnvG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/PiCamera-Digit-Recognizer-master" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -37,7 +49,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.speaker">
+  <component name="RunManager" selected="Python.ArduinoUART">
     <configuration name="ArduinoUART" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="RoboCup AP 2019" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -82,8 +94,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.speaker" />
         <item itemvalue="Python.ArduinoUART" />
+        <item itemvalue="Python.speaker" />
       </list>
     </recent_temporary>
   </component>

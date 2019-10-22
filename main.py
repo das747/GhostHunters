@@ -1,6 +1,10 @@
 from Speaker import *
 from ArduinoUART import PySerial
 from digit_recognizer import get_digit
+import argparse
+from time import sleep
+from imutils.video import VideoStream
+from keras.models import load_model
 import sys
 
 
@@ -10,6 +14,17 @@ box_n = 0
 talk("ввваф")
 ser = PySerial(PORT)
 
+model = load_model('mnist_trained_model.h5')  # import CNN model weight
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-p", "--picamera", type=int, default=-1,
+                help="whether or not the Raspberry Pi camera should be used")
+ap.add_argument("-b", "--bluetooth-client", type=str, default='raspberrypi',
+                help="bluetooth name of client raspberry")
+args = vars(ap.parse_args())
+
+vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
+sleep(1.0)
 
 while True:
     sample = get_command()  # получаем строку с командой
@@ -34,7 +49,7 @@ while True:
                 while not ser.in_waiting:
                     pass
                 ser.read_int()
-                if get_digit() == box_n:
+                if get_digit(vs, model) == box_n:
                     if get_confirmation():
                         correct = 1
                         break
