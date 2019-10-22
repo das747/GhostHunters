@@ -1,4 +1,4 @@
-from Speaker import *
+# from Speaker import *
 from ArduinoUART import PySerial
 from digit_recognizer import get_digit
 import argparse
@@ -6,12 +6,15 @@ from time import sleep
 from imutils.video import VideoStream
 from keras.models import load_model
 import sys
-
+from Bluetooth import add_client
+from bluetooth import *
 
 PORT = '/dev/cu.usbserial-A9GJJD9P'
 box_n = 0
 
-talk("ввваф")
+server = BluetoothSocket(RFCOMM)
+client = add_client(server, 3, 'raspberrypi')
+
 ser = PySerial(PORT)
 
 model = load_model('mnist_trained_model.h5')  # import CNN model weight
@@ -27,20 +30,14 @@ vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
 sleep(1.0)
 
 while True:
-    sample = get_command()  # получаем строку с командой
+    sample = client.recv(32).decode()  # получаем строку с командой
 
     #  обработка ввода номера коробки
-    if any([com in sample for com in box_com]):
-        for i in range(4):
-            if any([com in sample for com in num_coms[i]]):
-                box_n = i + 1
-                break
-        ser.write_int(box_n)
-        talk('гав' * box_n)
+    if sample.isdigit():
+        box_n = int(sample)
 
     # обработка команды искать
     elif 'forward' in sample:
-        talk('вперёд')
         correct = 0
         while not correct:
             # пока не найдёт будет ездить по кругу
