@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="81ff362c-db3a-4a9b-849d-d86de43f0378" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ArduinoUART.py" beforeDir="false" afterPath="$PROJECT_DIR$/ArduinoUART.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PiCamera-Digit-Recognizer-master/PiCameraApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/PiCameraApp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PiCamera-Digit-Recognizer-master/mnist_trained_model.h5" beforeDir="false" afterPath="$PROJECT_DIR$/mnist_trained_model.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/digit_recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/digit_recognizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PiCamera-Digit-Recognizer-master/PiCameraApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/PiCamera-Digit-Recognizer-master/PiCameraApp.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,6 +29,9 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/PiCamera-Digit-Recognizer-master" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
