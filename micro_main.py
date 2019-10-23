@@ -4,7 +4,7 @@ import sys
 
 SERVER = "B8:27:EB:9E:3D:92"
 
-talk("ввваф")
+talk("wuuuuf")
 
 client = BluetoothSocket(RFCOMM)
 client.connect(SERVER, 3)
@@ -21,7 +21,7 @@ while True:
                 box_n = i + 1
                 break
         client.send(box_n)
-        talk('гав' * box_n)
+        talk('guv ' * box_n)
 
     # обработка команды искать
     elif 'forward' in sample:

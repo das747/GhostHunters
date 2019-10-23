@@ -8,7 +8,7 @@ import os
 
 def talk(words):
     print(words)  # Дополнительно выводим на экран
-    os.system("say " + words)  # Проговариваем слова
+    os.system("espeak '" + words + "'")  # Проговариваем слова
 
 
 """
@@ -21,6 +21,8 @@ def talk(words):
 
 
 def get_command():
+    talk('start')
+
     # Создаем объект на основе библиотеки
     # speech_recognition и вызываем метод для определения данных
     r = sr.Recognizer()
@@ -38,6 +40,7 @@ def get_command():
         # Полученные данные записываем в переменную audio
         # пока мы получили лишь mp3 звук
         audio = r.listen(source)
+        talk('end')
 
     try:  # Обрабатываем все при помощи исключений
         """
@@ -55,7 +58,7 @@ def get_command():
         # Здесь просто проговариваем слова "Я вас не поняла"
         # и вызываем снова функцию get_command() для
         # получения текста от пользователя
-        talk("ваф ваф")
+        talk("wuf wuf")
         sample = get_command()
 
     # В конце функции возвращаем текст задания
@@ -88,4 +91,4 @@ wrong_com = ['wrong', 'no', 'not right', 'not correct']
 
 if __name__ == '__main__':
     while True:
-        print(get_command())
+        get_command()
