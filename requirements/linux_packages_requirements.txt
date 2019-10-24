@@ -1,0 +1,15 @@
+python-dev
+libbluetooth-dev
+bluez
+bluealsa
+pi-bluetooth
+blueman
+libasound2-dev
+python3-all-dev
+swig
+git
+build-essential
+libpulse-dev
+python3-pyaudio
+flac
+bison

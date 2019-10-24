@@ -1,0 +1,9 @@
+pandas
+keras
+datetime
+argparse
+imutils
+scikit-image
+pyserial
+tensorflow
+speechrecognition
