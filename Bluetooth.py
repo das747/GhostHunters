@@ -22,4 +22,4 @@ if __name__ == '__main__':
     client = add_client(server, 3, CLIENT)
     while True:
         data = client.recv(16)
-        print(data)
+        print(data.decode())
