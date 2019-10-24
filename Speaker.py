@@ -20,7 +20,7 @@ def talk(words):
 """
 
 
-def get_command():
+def get_command(recognizer):
     talk('start')
 
     # Создаем объект на основе библиотеки
@@ -50,7 +50,10 @@ def get_command():
         Теперь мы получили данные в формате строки,
         которые спокойно можем проверить в условиях
         """
-        sample = r.recognize_google(audio, language="en-US").lower()
+        if recognizer == 'google':
+            sample = r.recognize_google(audio, language="en-US").lower()
+        elif recognizer == 'sphinx':
+            sample = r.recognize_sphinx(audio).lower()
         # Просто отображаем текст что сказал пользователь
         print("Вы сказали: " + sample)
     # Если не смогли распознать текст, то будет вызвана эта ошибка

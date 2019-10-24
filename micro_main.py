@@ -9,10 +9,15 @@ talk("wuuuuf")
 client = BluetoothSocket(RFCOMM)
 client.connect(SERVER, 3)
 
+ap = argparse.ArgumentParser()
+ap.add_argument('-r', "--recognizer", type=str, default='sphinx',
+                help="recognizer type, google or sphinx")
+args = vars(ap.parse_args())
+
 box_n = 0
 
 while True:
-    sample = get_command()  # получаем строку с командой
+    sample = get_command(args['recognizer'])  # получаем строку с командой
 
     #  обработка ввода номера коробки
     if any([com in sample for com in box_com]):
