@@ -8,7 +8,7 @@ import os
 
 def talk(words):
     print(words)  # Дополнительно выводим на экран
-    os.system("espeak '" + words + "'")  # Проговариваем слова
+    os.system("espeak '" + words + "' --stdout|aplay")  # Проговариваем слова
 
 
 """
