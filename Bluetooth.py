@@ -33,6 +33,7 @@ if __name__ == '__main__':
             data = client.recv(16)
             print(data.decode())
     elif args['mode'] == 'client':
-        print('connected')
         socket.connect((addr_dict[args['name']], 3))
-        
+        print('connected')
+        while True:
+            socket.send(input())
