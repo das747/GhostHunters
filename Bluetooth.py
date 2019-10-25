@@ -4,6 +4,7 @@ import argparse
 
 def add_client(server, port, client_name=''):
     server.bind((client_name, port))
+    print('waiting for BT connection...')
     server.listen(1)
     client_socket, addr = server.accept()
     # if client_addr != addr:

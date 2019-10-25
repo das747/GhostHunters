@@ -9,7 +9,7 @@ import sys
 from Bluetooth import add_client, get_confirmation
 from bluetooth import *
 
-PORT = '/dev/cu.usbserial-A9GJJD9P'
+PORT = '/dev/ttyUSB0'
 box_n = 0
 
 server = BluetoothSocket(RFCOMM)
@@ -29,6 +29,7 @@ args = vars(ap.parse_args())
 vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
 sleep(1.0)
 
+print('ready')
 while True:
     sample = client.recv(32).decode()  # получаем строку с командой
 
@@ -36,6 +37,7 @@ while True:
     if sample.isdigit():
         box_n = int(sample)
         talk('guv ' * box_n)
+        ser.write_int(box_n)
 
     # обработка команды искать
     elif 'forward' in sample:
