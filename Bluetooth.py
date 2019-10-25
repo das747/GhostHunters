@@ -1,10 +1,10 @@
 from bluetooth import *
-import sys
-import argparser
+import argparse
 
 
 def add_client(server, port, client_name=''):
     server.bind((client_name, port))
+    print('waiting for BT connection...')
     server.listen(1)
     client_socket, addr = server.accept()
     # if client_addr != addr:
@@ -18,7 +18,8 @@ def get_confirmation(client):
 
 
 if __name__ == '__main__':
-    addr_dict = {'pi5':'B8:27:EB:9E:3D:92', 'red':'B8:27:EB:AE:01:FF', 'micro':'B8:27:EB:4A:F7:21'}
+    addr_dict = {'pi5': 'B8:27:EB:9E:3D:92', 'red': 'B8:27:EB:AE:01:FF',
+                 'micro': 'B8:27:EB:4A:F7:21'}
     ap = argparse.ArgumentParser()
     ap.add_argument("-m", "--mode", type=str, default="server",
                     help="open connection as server pr as client")
@@ -29,10 +30,13 @@ if __name__ == '__main__':
     if args['mode'] == 'server':
         print('starting server...')
         client = add_client(socket, 3)
-        pritn('connected')
+        print('connected')
         while True:
             data = client.recv(16)
             print(data.decode())
     elif args['mode'] == 'client':
+        print('connecting to ' + args['name'] + '...')
         socket.connect((addr_dict[args['name']], 3))
-        
+        print('connected')
+        while True:
+            socket.send(input())

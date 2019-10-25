@@ -25,7 +25,7 @@ class PySerial(serial.Serial):
 
 
 if __name__ == '__main__':
-    port = '/dev/cu.usbserial-A9GJJD9P'
+    port = '/dev/ttyUSB0'
     ser = PySerial(port)
     while 1:
         ser.write_int(int(input()))
