@@ -1,5 +1,6 @@
 from bluetooth import *
-import argparse
+import sys
+import argparser
 
 
 def add_client(server, port, client_name=''):
@@ -34,8 +35,4 @@ if __name__ == '__main__':
             print(data.decode())
     elif args['mode'] == 'client':
         socket.connect((addr_dict[args['name']], 3))
-        print('connected')
-        while True:
-            socket.send(input())
-
         
