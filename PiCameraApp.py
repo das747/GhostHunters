@@ -24,7 +24,7 @@ ap.add_argument("-p", "--picamera", type=int, default=-1,
                 help="whether or not the Raspberry Pi camera should be used")
 args = vars(ap.parse_args())
 
-vs = VideoStream(usePiCamera=args["picamera"] > 0).start()
+vs = VideoStream(1).start()#usePiCamera=args["picamera"] > 0).start()
 time.sleep(1.0)
 
 
@@ -73,7 +73,21 @@ def main():
             cv2.putText(frame, ts, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX,
                         0.35, (0, 0, 255), 1)
 
-            cv2.imshow("Frame", frame)
+            # cv2.imshow("Frame", frame)
+            cv2.imwrite("num.jpg", frame)
+            im_orig = cv2.imread("num.jpg")
+            hsv = cv2.cvtColor(im_orig, cv2.COLOR_BGR2HSV)
+
+            # define range of white color in HSV
+            # change it according to your need !
+            lower_white = np.array([0, 0, 0], dtype=np.uint8)
+            upper_white = np.array([255, 20, 255], dtype=np.uint8)
+
+            # Threshold the HSV image to get only white colors
+            mask = cv2.inRange(hsv, lower_white, upper_white)
+            # Bitwise-AND mask and original image
+            res = cv2.bitwise_and(im_orig, im_orig, mask=mask)
+            cv2.imshow('', res)
             key = cv2.waitKey(1) & 0xFF
 
             if key == ord("q"):
@@ -81,9 +95,7 @@ def main():
                 cv2.destroyAllWindows()
                 vs.stop()
             elif key == ord("t"):
-                cv2.imwrite("num.jpg", frame)
-                im_orig = cv2.imread("num.jpg")
-                ImagePreProcess(im_orig)
+                ImagePreProcess(res)
             else:
                 pass
 
