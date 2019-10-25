@@ -1,5 +1,6 @@
 from skimage import img_as_ubyte  # convert float to uint8
 from skimage.color import rgb2gray
+import numpy as np
 import cv2
 import datetime
 import argparse
@@ -15,7 +16,19 @@ def get_digit(vs, model):
     frame = imutils.resize(frame, width=600)
     cv2.imwrite("num.jpg", frame)
     im_orig = cv2.imread("num.jpg")
-    im_gray = rgb2gray(im_orig)
+    hsv = cv2.cvtColor(im_orig, cv2.COLOR_BGR2HSV)
+
+    # define range of white color in HSV
+    # change it according to your need !
+    lower_white = np.array([0, 0, 0], dtype=np.uint8)
+    upper_white = np.array([255, 20, 255], dtype=np.uint8)
+
+    # Threshold the HSV image to get only white colors
+    mask = cv2.inRange(hsv, lower_white, upper_white)
+    # Bitwise-AND mask and original image
+    im_mask = cv2.bitwise_and(im_orig, im_orig, mask=mask)
+    # cv2.imshow('', im_mask)
+    im_gray = rgb2gray(im_mask)
     img_gray_u8 = img_as_ubyte(im_gray)
 
     (thresh, im_bw) = cv2.threshold(img_gray_u8, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
@@ -32,6 +45,7 @@ def get_digit(vs, model):
     ans = ans[0].tolist().index(max(ans[0].tolist()))
     return ans
 
+
 if __name__ == '__main__':
     model = load_model('mnist_trained_model.h5')  # import CNN model weight
 
@@ -46,8 +60,6 @@ if __name__ == '__main__':
     time.sleep(1.0)
     while True:
         print('ready')
-        if args['autoscan']=='yes' or input():
+        if args['autoscan'] == 'yes' or input():
             print(get_digit(vs, model))
             sleep(1)
-    
-    
