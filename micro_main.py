@@ -1,18 +1,21 @@
 from Speaker import *
 from bluetooth import *
+import argparse
 import sys
 
-SERVER = "B8:27:EB:9E:3D:92"
+addr_dict = {'pi5': 'B8:27:EB:9E:3D:92', 'red': 'B8:27:EB:AE:01:FF', 'micro': 'B8:27:EB:4A:F7:21'}
 
 talk("wuuuuf")
-
-client = BluetoothSocket(RFCOMM)
-client.connect(SERVER, 3)
 
 ap = argparse.ArgumentParser()
 ap.add_argument('-r', "--recognizer", type=str, default='sphinx',
                 help="recognizer type, google or sphinx")
+ap.add_argument("-n", "--name", type=str, default="red",
+                help="chose server name")
 args = vars(ap.parse_args())
+
+client = BluetoothSocket(RFCOMM)
+client.connect((addr_dict[args['name']], 3))
 
 box_n = 0
 
