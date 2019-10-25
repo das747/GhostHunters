@@ -14,8 +14,10 @@ ap.add_argument("-n", "--name", type=str, default="red",
                 help="chose server name")
 args = vars(ap.parse_args())
 
+print('connecting to ' + args['name'] + '...')
 client = BluetoothSocket(RFCOMM)
 client.connect((addr_dict[args['name']], 3))
+print('connected')
 
 box_n = 0
 
@@ -28,13 +30,13 @@ while True:
             if any([com in sample for com in num_coms[i]]):
                 box_n = i + 1
                 break
-        client.send(box_n)
+        client.send(str(box_n))
         talk('guv ' * box_n)
 
     # обработка команды искать
     elif 'forward' in sample:
-        talk('вперёд')
         client.send("forward")
+        talk('вперёд')
         complete = 0
         while not complete:
             client.recv()
@@ -45,8 +47,8 @@ while True:
 
     # завершение работы
     elif 'stop' in sample:
-        talk("Да, конечно, гав гав")
         client.send("stop")
+        talk("Да, конечно, гав гав")
         sys.exit()
 
     elif 'name' in sample:

@@ -1,6 +1,6 @@
 import speech_recognition as sr
 import os
-
+import argparse
 
 # Функция, позволяющая проговаривать слова
 # Принимает параметр "Слова" и прогроваривает их
@@ -62,7 +62,7 @@ def get_command(recognizer):
         # и вызываем снова функцию get_command() для
         # получения текста от пользователя
         talk("wuf wuf")
-        sample = get_command()
+        sample = get_command(recognizer)
 
     # В конце функции возвращаем текст задания
     # или же повторный вызов функции
@@ -80,7 +80,7 @@ def get_confirmation():
 
 
 # варианты команды ввода нномера коробки
-box_com = ['show box', 'box number', 'showbox', 'show number', 'show', 'books', 'books number']
+box_com = ['show box', 'box number', 'showbox', 'show number', 'show', 'books', 'books number', 'number', 'phone']
 
 # варианты номеров
 num_coms = [['1', 'one'], ['2', 'two', 'too', 'to'], ['3', 'tree', 'three', 'free'],
@@ -93,5 +93,10 @@ correct_com = ['right', 'yes', 'correct']
 wrong_com = ['wrong', 'no', 'not right', 'not correct']
 
 if __name__ == '__main__':
+    
+    ap = argparse.ArgumentParser()
+    ap.add_argument('-r', "--recognizer", type=str, default='sphinx',
+                    help="recognizer type, google or sphinx")
+    args = vars(ap.parse_args())
     while True:
-        get_command()
+        get_command(args['recognizer'])
