@@ -53,8 +53,7 @@ def get_command(recognizer):
         if recognizer == 'google':
             sample = r.recognize_google(audio, language="en-US").lower()
         elif recognizer == 'sphinx':
-            keywords = [('show', 1), ('box', 1), ('number', 1), ('forward', 1), ('correct', 0.6),
-                        ('wrong', 0.6)]
+            keywords = [('show', 1), ('box', 1), ('number', 1), ('forward', 1)]
             sample = r.recognize_sphinx(audio, keyword_entries=keywords)
         # Просто отображаем текст что сказал пользователь
         print("Вы сказали: " + sample)
