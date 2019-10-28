@@ -53,7 +53,9 @@ def get_command(recognizer):
         if recognizer == 'google':
             sample = r.recognize_google(audio, language="en-US").lower()
         elif recognizer == 'sphinx':
-            sample = r.recognize_sphinx(audio).lower()
+            keywords = [('show', 1), ('box', 1), ('number', 1), ('forward', 1), ('correct', 0.6),
+                        ('wrong', 0.6)]
+            sample = r.recognize_sphinx(audio, keyword_entries=keywords)
         # Просто отображаем текст что сказал пользователь
         print("Вы сказали: " + sample)
     # Если не смогли распознать текст, то будет вызвана эта ошибка
@@ -80,10 +82,11 @@ def get_confirmation():
 
 
 # варианты команды ввода нномера коробки
-box_com = ['show box', 'box number', 'showbox', 'show number', 'show', 'books', 'books number', 'number', 'phone']
+box_com = ['show box', 'box number', 'showbox', 'show number', 'show', 'books', 'books number',
+           'number', 'phone']
 
 # варианты номеров
-num_coms = [['1', 'one'], ['2', 'two', 'too', 'to'], ['3', 'tree', 'three', 'free'],
+num_coms = [['1', 'one', 'won'], ['2', 'two', 'too', 'to'], ['3', 'tree', 'three', 'free'],
             ['4', 'four', 'for']]
 
 # варианты согласия
@@ -93,7 +96,6 @@ correct_com = ['right', 'yes', 'correct']
 wrong_com = ['wrong', 'no', 'not right', 'not correct']
 
 if __name__ == '__main__':
-    
     ap = argparse.ArgumentParser()
     ap.add_argument('-r', "--recognizer", type=str, default='sphinx',
                     help="recognizer type, google or sphinx")
