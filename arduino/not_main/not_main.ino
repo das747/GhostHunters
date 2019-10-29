@@ -27,6 +27,8 @@ void loop() {
         for (move_count; move_count > 0; move_count--) next_box(40, 0);
         Serial.write(1);
         break;
+      case 7:
+        turn(300);
       default:
         Serial.write(sound(com));
         break;
@@ -50,6 +52,7 @@ int get_us(int trig, int echo) {
 
 
 bool next_box(int lim, bool dir) {
+  neck_h.write(90);
   while (get_us(US, US + 1) <= lim) {
     digitalWrite(4, !dir);
     digitalWrite(5, dir);
@@ -69,6 +72,7 @@ bool next_box(int lim, bool dir) {
   digitalWrite(5, 0);
   digitalWrite(6, 0);
   digitalWrite(7, 0);
+  neck_h.write(5);
   return 1;
 }
 
@@ -78,4 +82,14 @@ bool sound(byte n) {
     delay(1000);
   }
   return 1;
+}
+
+bool turn(int ms){
+  bool dir = ms > 0;
+  ms = abs(ms);
+  digitalWrite(4, !dir);
+  digitalWrite(5, dir);
+  digitalWrite(6, !dir);
+  digitalWrite(7, dir);
+  delay(ms);
 }
