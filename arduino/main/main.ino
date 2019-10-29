@@ -1,28 +1,37 @@
-const byte FRST_M = 4, US = 2;
-byte com = 0;
+#include <Servo.h>
+
+const byte FRST_M = 4, US = 2, V_SERV = 10, H_SERV = 9;
+byte com = 0, move_count = 0;
+
+Servo neck_h, neck_v;
 
 void setup() {
   Serial.begin(9600);
   pinMode(US, OUTPUT);
   for (int i = FRST_M; i < FRST_M + 4; i++) pinMode(i, OUTPUT);
+  neck_v.attach(V_SERV);
+  neck_h.attach(H_SERV);
+  neck_v.write(150);
+  neck_h.write(90);
 }
 
 void loop() {
   if (Serial.available()) {
     com = Serial.read();
-    switch(com){
-     case 5: 
-      next_box(40, 1);
-      break;
-     case 6:
-      next_box(40, 0);
-      break;
-     default:
-      sound(com);
-      break;
+    switch (com) {
+      case 5:
+        Serial.write(next_box(40, 1));
+        move_count += 1;
+        break;
+      case 6:
+        for (move_count; move_count > 0; move_count--) next_box(40, 0);
+        break;
+      default:
+        sound(com);
+        break;
     }
-    Serial.write(1);
   }
+//    next_box(10, 1);
 }
 
 int get_us(int trig, int echo) {
@@ -36,6 +45,8 @@ int get_us(int trig, int echo) {
   if (value <= 0) value = 0;
   return value;
 }
+
+
 
 bool next_box(int lim, bool dir) {
   while (get_us(US, US + 1) <= lim) {
