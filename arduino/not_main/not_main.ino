@@ -3,38 +3,58 @@
 const byte FRST_M = 4, US = 2, V_SERV = 10, H_SERV = 9;
 byte com = 0, move_count = 0;
 
-Servo neck_h, neck_v;
+Servo h_neck, neck_v;
 
 void setup() {
   Serial.begin(9600);
   pinMode(US, OUTPUT);
+  pinMode(15, OUTPUT);
   for (int i = FRST_M; i < FRST_M + 4; i++) pinMode(i, OUTPUT);
   neck_v.attach(V_SERV);
-  neck_h.attach(H_SERV);
+  h_neck.attach(H_SERV);
   neck_v.write(150);
-  neck_h.write(0);
+  h_neck.write(90);
 }
 
 void loop() {
   if (Serial.available()) {
     com = Serial.read();
     switch (com) {
-      case 5:
-        Serial.write(next_box(40, 1));
-        move_count += 1;
-        break;
-      case 6:
-        for (move_count; move_count > 0; move_count--) next_box(40, 0);
-        Serial.write(1);
-        break;
-      case 7:
-        turn(300);
-      default:
-        Serial.write(sound(com));
-        break;
+    case 5:
+      turn(500);
+      delay(300);
+      h_neck.write(90);
+      delay(300);
+      next_box(60, 1);
+      move_count += 1;
+      delay(300);
+      h_neck.write(0);
+      delay(300);
+      turn(-500);
+      break;
+    case 6:
+      h_neck.write(90);
+      turn(500);
+      back(move_count, 60z);
+    case 7:
+      turn(500);
+      break;
+    case 8:
+      turn(-500);
+      break;
+    case 9:
+      Serial.write(1);
+      while(not Serial.available()){
+      }
+      move_count += Serial.read();
+      break;
+     default:
+      sound(com);
+      break;
     }
+    Serial.write(1);
   }
-//    next_box(10, 1);
+  //    next_box(10, 1);
 }
 
 int get_us(int trig, int echo) {
@@ -52,28 +72,46 @@ int get_us(int trig, int echo) {
 
 
 bool next_box(int lim, bool dir) {
-  neck_h.write(90);
-  while (get_us(US, US + 1) <= lim) {
+  while ((get_us(US, US + 1) <= lim) and (get_us(15, 14) <= lim)) {
     digitalWrite(4, !dir);
     digitalWrite(5, dir);
     digitalWrite(6, dir);
     digitalWrite(7, !dir);
   }
+  stop();
   sound(1);
-  while (get_us(US, US + 1) > lim) {
+  while (get_us(US, US + 1) > lim or get_us(15, 14) > lim) {
     digitalWrite(4, !dir);
     digitalWrite(5, dir);
     digitalWrite(6, dir);
     digitalWrite(7, !dir);
   }
-//  sound(1);
-  delay(500);
-  digitalWrite(4, 0);
-  digitalWrite(5, 0);
-  digitalWrite(6, 0);
-  digitalWrite(7, 0);
-  neck_h.write(5);
+  stop();
+  sound(1);
+  //  delay(100);
   return 1;
+}
+
+bool back(byte n, byte lim){
+  bool dir = 0;
+  for (n; n > 0; n--){
+    while ((get_us(US, US + 1) <= lim) or (get_us(15, 14) <= lim)) {
+      digitalWrite(4, !dir);
+      digitalWrite(5, dir);
+      digitalWrite(6, dir);
+      digitalWrite(7, !dir);
+    }
+    stop();
+    sound(1);
+    while (get_us(US, US + 1) > lim or get_us(15, 14) > lim) {
+      digitalWrite(4, !dir);
+      digitalWrite(5, dir);
+      digitalWrite(6, dir);
+      digitalWrite(7, !dir);
+    }
+    stop();
+    sound(1);
+  }
 }
 
 bool sound(byte n) {
@@ -92,4 +130,14 @@ bool turn(int ms){
   digitalWrite(6, !dir);
   digitalWrite(7, dir);
   delay(ms);
+  stop();
 }
+
+void stop(){
+  digitalWrite(4, 0);
+  digitalWrite(5, 0);
+  digitalWrite(6, 0);
+  digitalWrite(7, 0);
+  return;
+}
+
