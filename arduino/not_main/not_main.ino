@@ -21,7 +21,7 @@ void loop() {
     com = Serial.read();
     switch (com) {
     case 5:
-      turn(500);
+      turn(1);
       delay(300);
       h_neck.write(90);
       delay(300);
@@ -30,23 +30,23 @@ void loop() {
       delay(300);
       h_neck.write(0);
       delay(300);
-      turn(-500);
+      turn(0);
       break;
     case 6:
       h_neck.write(90);
-      turn(500);
-      back(move_count, 60z);
+      turn(1);
+      back(move_count, 60);
     case 7:
-      turn(500);
+      turn(0);
       break;
     case 8:
-      turn(-500);
+      turn(1);
       break;
     case 9:
       Serial.write(1);
       while(not Serial.available()){
       }
-      move_count += Serial.read();
+      move_count = Serial.read();
       break;
      default:
       sound(com);
@@ -58,15 +58,20 @@ void loop() {
 }
 
 int get_us(int trig, int echo) {
-  digitalWrite(trig, LOW); //НАЧАЛО ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
-  delayMicroseconds(5);
-  digitalWrite(trig, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trig, LOW); //КОНЕЦ ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
-  int value = pulseIn(echo, HIGH); //НАЧАЛО ОБРАБОТКИ ПОКАЗАНИЙ US
-  value = (value / 2) / 29.1;      //КОНЕЦ ОБРАБОТКИ ПОКАЗАНИЙ US
-  if (value <= 0) value = 0;
-  return value;
+  int res = 0;
+  for (int i=0; i<5; i++){
+
+    digitalWrite(trig, LOW); //НАЧАЛО ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
+    delayMicroseconds(5);
+    digitalWrite(trig, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trig, LOW); //КОНЕЦ ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
+    int value = pulseIn(echo, HIGH); //НАЧАЛО ОБРАБОТКИ ПОКАЗАНИЙ US
+    value = (value / 2) / 29.1;      //КОНЕЦ ОБРАБОТКИ ПОКАЗАНИЙ US
+    if (value <= 0) value = 0;
+    res += value;
+  }
+  return int(res / 5);
 }
 
 
@@ -122,16 +127,26 @@ bool sound(byte n) {
   return 1;
 }
 
-bool turn(int ms){
-  bool dir = ms > 0;
-  ms = abs(ms);
+bool turn(bool dir){
   digitalWrite(4, !dir);
   digitalWrite(5, dir);
   digitalWrite(6, !dir);
   digitalWrite(7, dir);
-  delay(ms);
+  delay(200);
+  while(digitalRead(8)){}
   stop();
 }
+
+//bool turn(int ms){
+//  bool dir = ms > 0;
+//  ms = abs(ms);
+//  digitalWrite(4, !dir);
+//  digitalWrite(5, dir);
+//  digitalWrite(6, !dir);
+//  digitalWrite(7, dir);
+//  delay(ms);
+//  stop();
+//}
 
 void stop(){
   digitalWrite(4, 0);

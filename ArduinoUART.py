@@ -29,6 +29,7 @@ if __name__ == '__main__':
     ser = PySerial(port)
     while 1:
         ser.write_int(int(input()))
-        while not ser.inWaiting:
+        while not ser.in_waiting:
             pass
-        print(ser.read_int())
+        while ser.in_waiting:
+            print(ser.read_int())
