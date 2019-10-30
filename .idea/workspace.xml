@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="81ff362c-db3a-4a9b-849d-d86de43f0378" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ArduinoUART.py" beforeDir="false" afterPath="$PROJECT_DIR$/ArduinoUART.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arduino/main/main.ino" beforeDir="false" afterPath="$PROJECT_DIR$/arduino/main/main.ino" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
