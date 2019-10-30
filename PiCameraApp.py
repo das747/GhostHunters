@@ -23,10 +23,8 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-p", "--picamera", type=int, default=-1,
                 help="whether or not the Raspberry Pi camera should be used")
 args = vars(ap.parse_args())
-if args['picamera'] > 0:
-    vs = VideoStream(usePiCamera=1).start()
-else:
-    vs = VideoStream(0).start()
+
+vs = VideoStream(1).start()#usePiCamera=args["picamera"] > 0).start()
 time.sleep(1.0)
 
 
@@ -89,7 +87,7 @@ def main():
             mask = cv2.inRange(hsv, lower_white, upper_white)
             # Bitwise-AND mask and original image
             res = cv2.bitwise_and(im_orig, im_orig, mask=mask)
-            cv2.imshow('', im_orig)
+            cv2.imshow('', res)
             key = cv2.waitKey(1) & 0xFF
 
             if key == ord("q"):
@@ -97,7 +95,7 @@ def main():
                 cv2.destroyAllWindows()
                 vs.stop()
             elif key == ord("t"):
-                ImagePreProcess(im_orig)
+                ImagePreProcess(res)
             else:
                 pass
 
