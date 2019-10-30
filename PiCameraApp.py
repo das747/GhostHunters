@@ -24,7 +24,10 @@ ap.add_argument("-p", "--picamera", type=int, default=-1,
                 help="whether or not the Raspberry Pi camera should be used")
 args = vars(ap.parse_args())
 
-vs = VideoStream(1).start()#usePiCamera=args["picamera"] > 0).start()
+if args['picamera'] > 0:
+    vs = VideoStream(usePiCamera=1).start()
+else:
+    vs = VideoStream(0).start()
 time.sleep(1.0)
 
 
