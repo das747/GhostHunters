@@ -20,8 +20,8 @@ void loop(){
   bool a = (abs(norm.ZAxis * timeStep / 1000) > 0.05);
   X += norm.ZAxis * timeStep / 1000 * a;
   bool left = X > 0;
-  bool right = X < 90;
-  Serial.println(turn);
+  bool right = X < 45;
+  Serial.println((String) left + "\t" + right);
   digitalWrite(3, left);
   digitalWrite(4, right);
   delay(timeStep-(millis()-timer));

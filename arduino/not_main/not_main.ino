@@ -132,7 +132,6 @@ bool turn(bool dir){
   digitalWrite(5, dir);
   digitalWrite(6, !dir);
   digitalWrite(7, dir);
-  delay(200);
   if (dir) while(digitalRead(8)){}
   else while(digitalRead(12)){}
   stop();
