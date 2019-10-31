@@ -25,7 +25,7 @@ void loop() {
       delay(300);
       h_neck.write(90);
       delay(300);
-      next_box(60, 1);
+      next_box(50);
       move_count += 1;
       delay(300);
       h_neck.write(0);
@@ -35,7 +35,9 @@ void loop() {
     case 6:
       h_neck.write(90);
       turn(1);
+      delay(300);
       back(move_count, 60);
+      break;
     case 7:
       turn(0);
       break;
@@ -48,6 +50,10 @@ void loop() {
       }
       move_count = Serial.read();
       break;
+    case 10:
+      Serial.write(get_us(US, US+1));
+      Serial.write(get_us(15, 14));
+      break;
      default:
       sound(com);
       break;
@@ -58,41 +64,43 @@ void loop() {
 }
 
 int get_us(int trig, int echo) {
-  int res = 0;
-  for (int i=0; i<5; i++){
-
-    digitalWrite(trig, LOW); //НАЧАЛО ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
-    delayMicroseconds(5);
-    digitalWrite(trig, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(trig, LOW); //КОНЕЦ ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
-    int value = pulseIn(echo, HIGH); //НАЧАЛО ОБРАБОТКИ ПОКАЗАНИЙ US
-    value = (value / 2) / 29.1;      //КОНЕЦ ОБРАБОТКИ ПОКАЗАНИЙ US
-    if (value <= 0) value = 0;
-    res += value;
-  }
-  return int(res / 5);
+  digitalWrite(trig, LOW); //НАЧАЛО ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
+  delayMicroseconds(5);
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW); //КОНЕЦ ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
+  int value = pulseIn(echo, HIGH); //НАЧАЛО ОБРАБОТКИ ПОКАЗАНИЙ US
+  value = (value / 2) / 29.1;      //КОНЕЦ ОБРАБОТКИ ПОКАЗАНИЙ US
+  if (value <= 0) value = 1000;  
+  delay(2);
+  return value;
 }
 
 
 
-bool next_box(int lim, bool dir) {
-  while ((get_us(US, US + 1) <= lim) and (get_us(15, 14) <= lim)) {
+bool next_box(int lim) {
+  bool dir = 1;
+  while ((get_us(US, US + 1) <= lim) or (get_us(15, 14) <= lim)) 
     digitalWrite(4, !dir);
     digitalWrite(5, dir);
     digitalWrite(6, dir);
     digitalWrite(7, !dir);
+//    Serial.write(get_us(US, US + 1));
   }
   stop();
+//  Serial.print('a');
   sound(1);
   while (get_us(US, US + 1) > lim or get_us(15, 14) > lim) {
     digitalWrite(4, !dir);
     digitalWrite(5, dir);
     digitalWrite(6, dir);
     digitalWrite(7, !dir);
+//    Serial.write(get_us(US, US + 1));
   }
+  delay(500);
   stop();
   sound(1);
+  
   //  delay(100);
   return 1;
 }

@@ -31,5 +31,6 @@ if __name__ == '__main__':
         ser.write_int(int(input()))
         while not ser.in_waiting:
             pass
+        sleep(0.1)
         while ser.in_waiting:
             print(ser.read_int())
