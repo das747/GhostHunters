@@ -133,7 +133,8 @@ bool turn(bool dir){
   digitalWrite(6, !dir);
   digitalWrite(7, dir);
   delay(200);
-  while(digitalRead(8)){}
+  if (dir) while(digitalRead(8)){}
+  else while(digitalRead(12)){}
   stop();
 }
 
@@ -155,4 +156,3 @@ void stop(){
   digitalWrite(7, 0);
   return;
 }
-
