@@ -37,6 +37,7 @@ void loop() {
       turn(1);
       delay(300);
       back(move_count, 60);
+      move_count = 0;
       break;
     case 7:
       turn(0);
@@ -107,13 +108,14 @@ bool next_box(int lim) {
 
 bool back(byte n, byte lim){
   bool dir = 0;
-  for (n; n > 0; n--){
+  for (n = n - 1; n > 0; n--){
     while ((get_us(US, US + 1) <= lim) or (get_us(15, 14) <= lim)) {
       digitalWrite(4, !dir);
       digitalWrite(5, dir);
       digitalWrite(6, dir);
       digitalWrite(7, !dir);
     }
+    turn(1);
     stop();
     sound(1);
     while (get_us(US, US + 1) > lim or get_us(15, 14) > lim) {
@@ -122,9 +124,20 @@ bool back(byte n, byte lim){
       digitalWrite(6, dir);
       digitalWrite(7, !dir);
     }
+    
     stop();
     sound(1);
+    turn(1);
   }
+  while ((get_us(US, US + 1) <= lim) or (get_us(15, 14) <= lim)) {
+      digitalWrite(4, !dir);
+      digitalWrite(5, dir);
+      digitalWrite(6, dir);
+      digitalWrite(7, !dir);
+  }
+  sound(1);
+  stop();
+  turn(1);
 }
 
 bool sound(byte n) {
