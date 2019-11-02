@@ -80,7 +80,7 @@ int get_us(int trig, int echo) {
 
 bool next_box(int lim) {
   bool dir = 1;
-  while ((get_us(US, US + 1) <= lim) or (get_us(15, 14) <= lim)) 
+  while ((get_us(US, US + 1) <= lim) or (get_us(15, 14) <= lim)){
     digitalWrite(4, !dir);
     digitalWrite(5, dir);
     digitalWrite(6, dir);
@@ -97,7 +97,7 @@ bool next_box(int lim) {
     digitalWrite(7, !dir);
 //    Serial.write(get_us(US, US + 1));
   }
-  delay(500);
+  delay(800);
   stop();
   sound(1);
   
