@@ -54,7 +54,7 @@ def get_command(recognizer):
             sample = r.recognize_google(audio, language="en-US").lower()
         elif recognizer == 'sphinx':
             keywords = [('show', 1), ('box', 1), ('number', 1), ('forward', 1)]
-            sample = r.recognize_sphinx(audio, keyword_entries=keywords)
+            sample = r.recognize_sphinx(audio).lower()
         # Просто отображаем текст что сказал пользователь
         print("Вы сказали: " + sample)
     # Если не смогли распознать текст, то будет вызвана эта ошибка

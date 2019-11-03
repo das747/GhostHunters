@@ -34,14 +34,14 @@ while True:
         talk('guv ' * box_n)
 
     # обработка команды искать
-    elif 'forward' in sample:
+    elif ' go ' in sample:
         client.send("forward")
         talk('вперёд')
         complete = 0
-        while not complete:
-            client.recv()
-            complete = get_confirmation()
-            client.send(complete)
+#         while not complete:
+#             client.recv(16)
+#             complete = get_confirmation()
+#             client.send(complete)
 
         box_n = 0
 
