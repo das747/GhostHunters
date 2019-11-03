@@ -65,16 +65,21 @@ void loop() {
 }
 
 int get_us(int trig, int echo) {
-  digitalWrite(trig, LOW); //НАЧАЛО ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
-  delayMicroseconds(5);
-  digitalWrite(trig, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trig, LOW); //КОНЕЦ ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
-  int value = pulseIn(echo, HIGH); //НАЧАЛО ОБРАБОТКИ ПОКАЗАНИЙ US
-  value = (value / 2) / 29.1;      //КОНЕЦ ОБРАБОТКИ ПОКАЗАНИЙ US
-  if (value <= 0) value = 1000;  
-  delay(2);
-  return value;
+  int res = 0;
+  for(byte i=0; i < 5; i++){
+    digitalWrite(trig, LOW); //НАЧАЛО ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
+    delayMicroseconds(5);
+    digitalWrite(trig, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trig, LOW); //КОНЕЦ ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
+    int value = pulseIn(echo, HIGH); //НАЧАЛО ОБРАБОТКИ ПОКАЗАНИЙ US
+    value = (value / 2) / 29.1;      //КОНЕЦ ОБРАБОТКИ ПОКАЗАНИЙ US
+    if (value <= 0) value = 1000;  
+    res += value;
+    delay(2);
+  }
+  res = int(res / 5);
+  return res;
 }
 
 
@@ -98,7 +103,7 @@ bool next_box(int lim) {
     digitalWrite(7, !dir);
 //    Serial.write(get_us(US, US + 1));
   }
-  delay(800);
+  delay(400);
   stop();
   sound(1);
   
