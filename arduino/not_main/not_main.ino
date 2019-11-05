@@ -37,6 +37,7 @@ void loop() {
       turn(1);
       delay(300);
       back(move_count, 60);
+      move_count = 0;
       break;
     case 7:
       turn(0);
@@ -64,16 +65,21 @@ void loop() {
 }
 
 int get_us(int trig, int echo) {
-  digitalWrite(trig, LOW); //НАЧАЛО ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
-  delayMicroseconds(5);
-  digitalWrite(trig, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trig, LOW); //КОНЕЦ ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
-  int value = pulseIn(echo, HIGH); //НАЧАЛО ОБРАБОТКИ ПОКАЗАНИЙ US
-  value = (value / 2) / 29.1;      //КОНЕЦ ОБРАБОТКИ ПОКАЗАНИЙ US
-  if (value <= 0) value = 1000;  
-  delay(2);
-  return value;
+  int res = 0;
+  for(byte i=0; i < 5; i++){
+    digitalWrite(trig, LOW); //НАЧАЛО ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
+    delayMicroseconds(5);
+    digitalWrite(trig, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trig, LOW); //КОНЕЦ ПОЛУЧЕНИЯ ДАННЫХ С US ДАТЧИКА
+    int value = pulseIn(echo, HIGH); //НАЧАЛО ОБРАБОТКИ ПОКАЗАНИЙ US
+    value = (value / 2) / 29.1;      //КОНЕЦ ОБРАБОТКИ ПОКАЗАНИЙ US
+    if (value <= 0) value = 1000;  
+    res += value;
+    delay(2);
+  }
+  res = int(res / 5);
+  return res;
 }
 
 
@@ -97,7 +103,7 @@ bool next_box(int lim) {
     digitalWrite(7, !dir);
 //    Serial.write(get_us(US, US + 1));
   }
-  delay(800);
+  delay(400);
   stop();
   sound(1);
   
@@ -107,13 +113,14 @@ bool next_box(int lim) {
 
 bool back(byte n, byte lim){
   bool dir = 0;
-  for (n; n > 0; n--){
+  for (n = n - 1; n > 0; n--){
     while ((get_us(US, US + 1) <= lim) or (get_us(15, 14) <= lim)) {
       digitalWrite(4, !dir);
       digitalWrite(5, dir);
       digitalWrite(6, dir);
       digitalWrite(7, !dir);
     }
+    turn(1);
     stop();
     sound(1);
     while (get_us(US, US + 1) > lim or get_us(15, 14) > lim) {
@@ -122,9 +129,20 @@ bool back(byte n, byte lim){
       digitalWrite(6, dir);
       digitalWrite(7, !dir);
     }
+    
     stop();
     sound(1);
+    turn(1);
   }
+  while ((get_us(US, US + 1) <= lim) or (get_us(15, 14) <= lim)) {
+      digitalWrite(4, !dir);
+      digitalWrite(5, dir);
+      digitalWrite(6, dir);
+      digitalWrite(7, !dir);
+  }
+  sound(1);
+  stop();
+  turn(1);
 }
 
 bool sound(byte n) {

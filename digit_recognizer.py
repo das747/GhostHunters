@@ -28,7 +28,8 @@ def get_digit(vs, model):
     # Bitwise-AND mask and original image
     im_mask = cv2.bitwise_and(im_orig, im_orig, mask=mask)
     # cv2.imshow('', im_mask)
-    im_gray = rgb2gray(im_mask)
+    cv2.imwrite("num_mask.jpg", im_mask)
+    im_gray = rgb2gray(im_orig)
     img_gray_u8 = img_as_ubyte(im_gray)
 
     (thresh, im_bw) = cv2.threshold(img_gray_u8, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)

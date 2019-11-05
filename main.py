@@ -9,7 +9,7 @@ import sys
 from Bluetooth import add_client, get_confirmation
 from bluetooth import *
 
-PORT = '/dev/ttyUSB0'
+PORT = '/dev/ttyUSB1'
 box_n = 0
 
 server = BluetoothSocket(RFCOMM)
@@ -44,16 +44,26 @@ while True:
         correct = 0
         while not correct:
             # пока не найдёт будет ездить по кругу
-            for i in range(4):
-                ser.write_command('forwards')
+            for box in range(4):
+                ser.flushInput()
+                ser.write_int(5)
                 while not ser.in_waiting:
                     pass
-                ser.read_int()
-                if get_digit(vs, model) == box_n:
-                    if get_confirmation(client):
-                        correct = 1
-                        break
+                ser.read()
+                digit = []
+                for i in range(2):
+                    for _ in range(5):
+                        sleep(0.5)
+                        digit.append(get_digit(vs, model))
+                        
+                    print(digit)
+                #print(digit == box_n)
+                if digit[1] == box_n:
+                    correct = 1
+                    break
             ser.write_command('return')
+                
+        talk('end')
         box_n = 0
 
     # завершение работы
