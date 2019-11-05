@@ -1,6 +1,6 @@
 #include <Servo.h>
 
-const byte FRST_M = 4, US = 2, V_SERV = 10, H_SERV = 9;
+const byte FIRST_M = 3, US = 7, US2 = 12, V_SERV = 10, H_SERV = 9;
 byte com = 0, move_count = 0;
 
 Servo h_neck, neck_v;
@@ -8,8 +8,8 @@ Servo h_neck, neck_v;
 void setup() {
   Serial.begin(9600);
   pinMode(US, OUTPUT);
-  pinMode(15, OUTPUT);
-  for (int i = FRST_M; i < FRST_M + 4; i++) pinMode(i, OUTPUT);
+  pinMode(US2, OUTPUT);
+  for (int i = FIRST_M; i < FIRST_M + 4; i++) pinMode(i, OUTPUT);
   neck_v.attach(V_SERV);
   h_neck.attach(H_SERV);
   neck_v.write(150);
@@ -86,21 +86,21 @@ int get_us(int trig, int echo) {
 
 bool next_box(int lim) {
   bool dir = 1;
-  while ((get_us(US, US + 1) <= lim) or (get_us(15, 14) <= lim)){
-    digitalWrite(4, !dir);
-    digitalWrite(5, dir);
-    digitalWrite(6, dir);
-    digitalWrite(7, !dir);
+  while ((get_us(US, US + 1) <= lim) or (get_us(US2, US2 + 1) <= lim)){
+    digitalWrite(FIRST_M, !dir);
+    digitalWrite(FIRST_M + 1, dir);
+    digitalWrite(FIRST_M + 2, dir);
+    digitalWrite(FIRST_M + 3, !dir);
 //    Serial.write(get_us(US, US + 1));
   }
   stop();
 //  Serial.print('a');
   sound(1);
-  while (get_us(US, US + 1) > lim or get_us(15, 14) > lim) {
-    digitalWrite(4, !dir);
-    digitalWrite(5, dir);
-    digitalWrite(6, dir);
-    digitalWrite(7, !dir);
+  while (get_us(US, US + 1) > lim or get_us(US2, US2 + 1) > lim) {
+    digitalWrite(FIRST_M, !dir);
+    digitalWrite(FIRST_M + 1, dir);
+    digitalWrite(FIRST_M + 2, dir);
+    digitalWrite(FIRST_M + 3, !dir);
 //    Serial.write(get_us(US, US + 1));
   }
   delay(400);
@@ -114,31 +114,31 @@ bool next_box(int lim) {
 bool back(byte n, byte lim){
   bool dir = 0;
   for (n = n - 1; n > 0; n--){
-    while ((get_us(US, US + 1) <= lim) or (get_us(15, 14) <= lim)) {
-      digitalWrite(4, !dir);
-      digitalWrite(5, dir);
-      digitalWrite(6, dir);
-      digitalWrite(7, !dir);
+    while ((get_us(US, US + 1) <= lim) or (get_us(US2, US2 + 1) <= lim)) {
+      digitalWrite(FIRST_M, !dir);
+      digitalWrite(FIRST_M + 1, dir);
+      digitalWrite(FIRST_M + 2, dir);
+      digitalWrite(FIRST_M + 3, !dir);
     }
     turn(1);
     stop();
     sound(1);
-    while (get_us(US, US + 1) > lim or get_us(15, 14) > lim) {
-      digitalWrite(4, !dir);
-      digitalWrite(5, dir);
-      digitalWrite(6, dir);
-      digitalWrite(7, !dir);
+    while (get_us(US, US + 1) > lim or get_us(US2, US2 + 1) > lim) {
+      digitalWrite(FIRST_M, !dir);
+      digitalWrite(FIRST_M + 1, dir);
+      digitalWrite(FIRST_M + 2, dir);
+      digitalWrite(FIRST_M + 3, !dir);
     }
     
     stop();
     sound(1);
     turn(1);
   }
-  while ((get_us(US, US + 1) <= lim) or (get_us(15, 14) <= lim)) {
-      digitalWrite(4, !dir);
-      digitalWrite(5, dir);
-      digitalWrite(6, dir);
-      digitalWrite(7, !dir);
+  while ((get_us(US, US + 1) <= lim) or (get_us(US2, US2 + 1) <= lim)) {
+      digitalWrite(FIRST_M, !dir);
+      digitalWrite(FIRST_M + 1, dir);
+      digitalWrite(FIRST_M + 2, dir);
+      digitalWrite(FIRST_M + 3, !dir);
   }
   sound(1);
   stop();
@@ -154,12 +154,12 @@ bool sound(byte n) {
 }
 
 bool turn(bool dir){
-  digitalWrite(4, !dir);
-  digitalWrite(5, dir);
-  digitalWrite(6, !dir);
-  digitalWrite(7, dir);
-  if (dir) while(digitalRead(8)){}
-  else while(digitalRead(12)){}
+  digitalWrite(FIRST_M, !dir);
+  digitalWrite(FIRST_M + 1, dir);
+  digitalWrite(FIRST_M + 2, !dir);
+  digitalWrite(FIRST_M + 3, dir);
+  if (dir) while(digitalRead(2)){}
+  else while(digitalRead(14)){}
   stop();
 }
 
@@ -175,9 +175,9 @@ bool turn(bool dir){
 //}
 
 void stop(){
-  digitalWrite(4, 0);
-  digitalWrite(5, 0);
-  digitalWrite(6, 0);
-  digitalWrite(7, 0);
+  digitalWrite(FIRST_M, 0);
+  digitalWrite(FIRST_M + 1, 0);
+  digitalWrite(FIRST_M + 2, 0);
+  digitalWrite(FIRST_M + 3, 0);
   return;
 }
