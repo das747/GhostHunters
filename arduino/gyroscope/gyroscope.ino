@@ -21,7 +21,7 @@ void loop(){
   X += norm.ZAxis * timeStep / 1000 * a;
   bool left = X > 0;
   bool right = X < 45;
-  Serial.println((String) left + "\t" + right);
+  Serial.println((String) left + "\t" + right + "\t" + int(X));
   digitalWrite(3, left);
   digitalWrite(4, right);
   delay(timeStep-(millis()-timer));
