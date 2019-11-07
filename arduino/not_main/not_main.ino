@@ -103,7 +103,7 @@ bool next_box(int lim) {
     digitalWrite(FIRST_M + 3, !dir);
 //    Serial.write(get_us(US, US + 1));
   }
-  delay(200);
+  delay(0);
   stop();
   sound(1);
   
@@ -154,10 +154,10 @@ bool sound(byte n) {
 }
 
 bool turn(bool dir){
-  digitalWrite(FIRST_M, !dir);
-  digitalWrite(FIRST_M + 1, dir);
-  digitalWrite(FIRST_M + 2, !dir);
-  digitalWrite(FIRST_M + 3, dir);
+  analogWrite(FIRST_M, !dir * 128);
+  analogWrite(FIRST_M + 1, dir * 128);
+  analogWrite(FIRST_M + 2, !dir * 128);
+  analogWrite(FIRST_M + 3, dir * 128);
   if (dir) while(digitalRead(2)){}
   else while(digitalRead(14)){}
   stop();
