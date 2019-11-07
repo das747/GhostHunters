@@ -12,8 +12,8 @@ void setup() {
   for (int i = FIRST_M; i < FIRST_M + 4; i++) pinMode(i, OUTPUT);
   neck_v.attach(V_SERV);
   h_neck.attach(H_SERV);
-  neck_v.write(150);
-  h_neck.write(90);
+  neck_v.write(100);
+  h_neck.write(0);
 }
 
 void loop() {
@@ -103,7 +103,7 @@ bool next_box(int lim) {
     digitalWrite(FIRST_M + 3, !dir);
 //    Serial.write(get_us(US, US + 1));
   }
-  delay(400);
+  delay(200);
   stop();
   sound(1);
   

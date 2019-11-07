@@ -17,10 +17,10 @@ void setup() {
 void loop(){
   unsigned long timer=millis();
   Vector norm = gyro.readNormalize();
-  bool a = (abs(norm.ZAxis * timeStep / 1000) > 0.05);
+  bool a = (abs(norm.ZAxis * timeStep / 1000) > 0.5);
   X += norm.ZAxis * timeStep / 1000 * a;
   bool left = X > 0;
-  bool right = X < 45;
+  bool right = X < 43;
   Serial.print((String) left + "\t" + right + "\t");
   Serial.println(X);
   digitalWrite(3, left);
