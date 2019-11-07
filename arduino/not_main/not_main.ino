@@ -1,6 +1,6 @@
 #include <Servo.h>
 
-const byte FIRST_M = 3, US = 7, US2 = 12, V_SERV = 10, H_SERV = 9;
+const byte FIRST_M = 3, US = 7, US2 = 17, V_SERV = 10, H_SERV = 9;
 byte com = 0, move_count = 0;
 
 Servo h_neck, neck_v;
@@ -53,7 +53,7 @@ void loop() {
       break;
     case 10:
       Serial.write(get_us(US, US+1));
-      Serial.write(get_us(15, 14));
+      Serial.write(get_us(US2,US2+1));
       break;
      default:
       sound(com);

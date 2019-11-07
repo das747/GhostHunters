@@ -1,11 +1,11 @@
 void setup() {
   Serial.begin(9600);
-  pinMode(2, OUTPUT);  //trig
-  pinMode(15, OUTPUT);
+  pinMode(7, OUTPUT);  //trig
+  pinMode(17, OUTPUT);
 }
 
 void loop() {
-  Serial.println(get_us(2, 3) + '\t' + get_us(15, 14));
+  Serial.println((String) get_us(7, 8) + '\t' + get_us(17, 18));
 }
 
 int get_us(int trig, int echo){
