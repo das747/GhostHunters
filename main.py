@@ -44,23 +44,14 @@ while True:
         correct = 0
         while not correct:
             # пока не найдёт будет ездить по кругу
-            for box in range(4):
-                ser.flushInput()
-                ser.write_int(5)
-                while not ser.in_waiting:
-                    pass
-                ser.read()
-                digit = []
-                for i in range(2):
-                    for _ in range(5):
-                        sleep(0.5)
-                        digit.append(get_digit(vs, model))
-                        
-                    print(digit)
-                #print(digit == box_n)
-                if digit[1] == box_n:
-                    correct = 1
-                    break
+            ser.flushInput()
+            ser.write_int(5)
+            while not ser.in_waiting:
+                pass
+            ser.read()
+            digit = get_digit(vs, model)
+            print(digit)
+            talk(digit)
             ser.write_command('return')
                 
         talk('end')
