@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="81ff362c-db3a-4a9b-849d-d86de43f0378" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arduino/compass_test/compass_test.ino" beforeDir="false" afterPath="$PROJECT_DIR$/arduino/tests/compass_test/compass_test.ino" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arduino/gyroscope/gyroscope.ino" beforeDir="false" afterPath="$PROJECT_DIR$/arduino/tests/gyroscope/gyroscope.ino" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arduino/serial_test/serial_test.ino" beforeDir="false" afterPath="$PROJECT_DIR$/arduino/tests/serial_test/serial_test.ino" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arduino/us_test/us_test.ino" beforeDir="false" afterPath="$PROJECT_DIR$/arduino/tests/us_test/us_test.ino" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/micro_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/micro_main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,13 +32,13 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/PiCamera-Digit-Recognizer-master" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/arduino/tests" />
       <recent name="$PROJECT_DIR$/requirements" />
       <recent name="$PROJECT_DIR$" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/PiCamera-Digit-Recognizer-master" />
     </key>
   </component>
   <component name="RunDashboard">

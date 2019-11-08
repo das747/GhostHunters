@@ -31,6 +31,7 @@ while True:
                 box_n = i + 1
                 break
         client.send(str(box_n))
+        client.send('forward')
         talk('guv ' * box_n)
 
     # обработка команды искать
