@@ -10,7 +10,7 @@ from Bluetooth import add_client, get_confirmation
 from bluetooth import *
 
 PORT = '/dev/ttyUSB1'
-box_n = 0
+box_n = 4
 
 server = BluetoothSocket(RFCOMM)
 client = add_client(server, 3)
@@ -41,29 +41,31 @@ while True:
 
     # обработка команды искать
     elif 'forward' in sample:
+        talk('guuuuf')
         correct = 0
-        while not correct:
-            # пока не найдёт будет ездить по кругу
-            for box in range(4):
-                ser.flushInput()
-                ser.write_int(5)
-                while not ser.in_waiting:
-                    pass
-                ser.read()
-                digit = []
-                for i in range(2):
-                    for _ in range(5):
-                        sleep(0.5)
-                        digit.append(get_digit(vs, model))
-                        
-                    print(digit)
-                #print(digit == box_n)
-                if digit[1] == box_n:
-                    correct = 1
-                    break
-            ser.write_command('return')
+        for box in range(4):
+            ser.flushInput()
+            ser.write_int(5)
+            while not ser.in_waiting:
+                pass
+            ser.read()
+            digit = []
+            for _ in range(10):
+                sleep(0.2)
+                digit.append(get_digit(vs, model))
+            digits = {}
+            for d in digit:
+                digits[d] = digits.get(d, 0) + 1
+            guess_digit = max(digits.items(), key=lambda d: d[1])[0]  
+            talk('guv ' * digit[1])
+            #print(digit == box_n)
+            if digit[1] == box_n:
+                correct = 1
                 
-        talk('end')
+                break
+        ser.write_command('return')
+                
+        talk('guuuuuf')
         box_n = 0
 
     # завершение работы

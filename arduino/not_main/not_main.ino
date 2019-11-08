@@ -13,7 +13,7 @@ void setup() {
   neck_v.attach(V_SERV);
   h_neck.attach(H_SERV);
   neck_v.write(100);
-  h_neck.write(0);
+  h_neck.write(90);
 }
 
 void loop() {
