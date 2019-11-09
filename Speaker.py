@@ -20,7 +20,7 @@ def talk(words):
 """
 
 
-def get_command(recognizer):
+def get_command(recognizer='sphinx'):
     talk('start')
 
     # Создаем объект на основе библиотеки

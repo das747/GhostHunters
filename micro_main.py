@@ -19,7 +19,7 @@ client = BluetoothSocket(RFCOMM)
 client.connect((addr_dict[args['name']], 3))
 print('connected')
 
-box_n = 0
+box_n = 4
 
 while True:
     sample = get_command(args['recognizer'])  # получаем строку с командой
@@ -33,18 +33,6 @@ while True:
         client.send(str(box_n))
         client.send('forward')
         talk('guv ' * box_n)
-
-    # обработка команды искать
-    elif ' go' in sample:
-        client.send("forward")
-        talk('вперёд')
-        complete = 0
-#         while not complete:
-#             client.recv(16)
-#             complete = get_confirmation()
-#             client.send(complete)
-
-        box_n = 0
 
     # завершение работы
     elif 'stop' in sample:
