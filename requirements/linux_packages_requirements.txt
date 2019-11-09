@@ -13,4 +13,3 @@ libpulse-dev
 python3-pyaudio
 flac
 bison
-libhdf5-dev

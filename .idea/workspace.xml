@@ -3,15 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="81ff362c-db3a-4a9b-849d-d86de43f0378" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ArduinoUART.py" beforeDir="false" afterPath="$PROJECT_DIR$/ArduinoUART.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bluetooth.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bluetooth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PiCameraApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/PiCameraApp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Speaker.py" beforeDir="false" afterPath="$PROJECT_DIR$/Speaker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arduino/main/main.ino" beforeDir="false" afterPath="$PROJECT_DIR$/arduino/main/main.ino" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/digit_recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/digit_recognizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/micro_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/micro_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements/linux_packages_requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements/linux_packages_requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -2,20 +2,23 @@ import speech_recognition as sr
 import os
 import argparse
 
-
 # Функция, позволяющая проговаривать слова
 # Принимает параметр "Слова" и прогроваривает их
+
 
 def talk(words):
     print(words)  # Дополнительно выводим на экран
     os.system("espeak '" + words + "' --stdout|aplay")  # Проговариваем слова
 
 
-# Функция get_command() служит для отслеживания микрофона.
-# Вызывая функцию мы будет слушать что скажет пользователь,
-# при этом для прослушивания будет использован микрофон.
-# Получение данные будут сконвертированы в строку и далее
-# будет происходить их проверка.
+"""
+    Функция get_command() служит для отслеживания микрофона.
+    Вызывая функцию мы будет слушать что скажет пользователь,
+    при этом для прослушивания будет использован микрофон.
+    Получение данные будут сконвертированы в строку и далее
+    будет происходить их проверка.
+"""
+
 
 def get_command(recognizer):
     talk('start')
@@ -40,19 +43,17 @@ def get_command(recognizer):
         talk('end')
 
     try:  # Обрабатываем все при помощи исключений
-
-        # Распознаем данные из mp3 дорожки.
-        # Указываем что отслеживаемый язык русский.
-        # Благодаря lower() приводим все в нижний регистр.
-        # Теперь мы получили данные в формате строки,
-        # которые спокойно можем проверить в условиях
-
+        """
+        Распознаем данные из mp3 дорожки.
+        Указываем что отслеживаемый язык русский.
+        Благодаря lower() приводим все в нижний регистр.
+        Теперь мы получили данные в формате строки,
+        которые спокойно можем проверить в условиях
+        """
         if recognizer == 'google':
             sample = r.recognize_google(audio, language="en-US").lower()
         elif recognizer == 'sphinx':
             sample = r.recognize_sphinx(audio).lower()
-        else:
-            sample = '(не выбран способ распознавания)'
         # Просто отображаем текст что сказал пользователь
         print("Вы сказали: " + sample)
     # Если не смогли распознать текст, то будет вызвана эта ошибка
@@ -69,18 +70,17 @@ def get_command(recognizer):
 
 
 # функция получения согласия или несогласия от ведущего
-def get_confirmation(recognizer):
+def get_confirmation():
     while True:
-        sample = get_command(recognizer)
+        sample = get_command()
         if any([com in sample for com in correct_com]):
             return 1
         elif any([com in sample for com in wrong_com]):
             return 0
 
 
-# варианты команды ввода номера коробки
-box_com = ['show box', 'box number', 'showbox', 'show number', 'show', 'books', 'books number',
-           'number', 'phone']
+# варианты команды ввода нномера коробки
+box_com = ['show box', 'box number', 'showbox', 'show number', 'show', 'books', 'books number', 'number', 'phone']
 
 # варианты номеров
 num_coms = [['1', 'one'], ['2', 'two', 'too', 'to'], ['3', 'tree', 'three', 'free'],
@@ -92,9 +92,8 @@ correct_com = ['right', 'yes', 'correct']
 # варианты несогласия
 wrong_com = ['wrong', 'no', 'not right', 'not correct']
 
-
-# тестовый код, выводит строку полученную при помощи выбранного метода распознавания
 if __name__ == '__main__':
+    
     ap = argparse.ArgumentParser()
     ap.add_argument('-r', "--recognizer", type=str, default='sphinx',
                     help="recognizer type, google or sphinx")

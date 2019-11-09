@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 
-# /PiCamera-Digit-Recognizer-master/pirec.py -  версия с комментариями
-
 # from skimage.io import imread
 # from skimage.transform import resize
 import numpy as np
@@ -15,6 +13,7 @@ import datetime
 import argparse
 import imutils
 import time
+from time import sleep
 from imutils.video import VideoStream
 from keras.models import load_model
 
@@ -78,9 +77,9 @@ def main():
             key = cv2.waitKey(1) & 0xFF
 
             if key == ord("q"):
+                break
                 cv2.destroyAllWindows()
                 vs.stop()
-                break
             elif key == ord("t"):
                 cv2.imwrite("num.jpg", frame)
                 im_orig = cv2.imread("num.jpg")
