@@ -82,7 +82,7 @@ def get_confirmation():
 
 # варианты команды ввода нномера коробки
 box_com = ['show box', 'box number', 'showbox', 'show number', 'show', 'books', 'books number',
-           'number', 'phone']
+           'number', 'phone', ' go']
 
 # варианты номеров
 num_coms = [['1', 'one', 'won'], ['2', 'two', 'too', 'to'], ['3', 'tree', 'three', 'free'],
