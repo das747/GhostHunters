@@ -10,7 +10,7 @@ talk("wuuuuf")
 ap = argparse.ArgumentParser()
 ap.add_argument('-r', "--recognizer", type=str, default='sphinx',
                 help="recognizer type, google or sphinx")
-ap.add_argument("-n", "--name", type=str, default="red",
+ap.add_argument("-n", "--name", type=str, default="pi5",
                 help="chose server name")
 args = vars(ap.parse_args())
 
@@ -19,7 +19,7 @@ client = BluetoothSocket(RFCOMM)
 client.connect((addr_dict[args['name']], 3))
 print('connected')
 
-box_n = 0
+box_n = 4
 
 while True:
     sample = get_command(args['recognizer'])  # получаем строку с командой
@@ -31,19 +31,8 @@ while True:
                 box_n = i + 1
                 break
         client.send(str(box_n))
+        client.send('forward')
         talk('guv ' * box_n)
-
-    # обработка команды искать
-    elif 'forward' in sample:
-        client.send("forward")
-        talk('вперёд')
-        complete = 0
-        while not complete:
-            client.recv()
-            complete = get_confirmation()
-            client.send(complete)
-
-        box_n = 0
 
     # завершение работы
     elif 'stop' in sample:

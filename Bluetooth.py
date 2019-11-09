@@ -13,7 +13,7 @@ def add_client(server, port, client_name=''):
 
 
 def get_confirmation(client):
-    client.send(1)
+    client.send(b'0x01')
     return bool(int(client.recv().decode()))
 
 

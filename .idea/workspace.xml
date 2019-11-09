@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="81ff362c-db3a-4a9b-849d-d86de43f0378" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bluetooth.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bluetooth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Speaker.py" beforeDir="false" afterPath="$PROJECT_DIR$/Speaker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/micro_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/micro_main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +37,7 @@
       <recent name="$PROJECT_DIR$/PiCamera-Digit-Recognizer-master" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/arduino/tests" />
       <recent name="$PROJECT_DIR$/requirements" />
       <recent name="$PROJECT_DIR$" />
     </key>

@@ -20,7 +20,7 @@ def talk(words):
 """
 
 
-def get_command(recognizer):
+def get_command(recognizer='sphinx'):
     talk('start')
 
     # Создаем объект на основе библиотеки
@@ -53,6 +53,7 @@ def get_command(recognizer):
         if recognizer == 'google':
             sample = r.recognize_google(audio, language="en-US").lower()
         elif recognizer == 'sphinx':
+            keywords = [('show', 1), ('box', 1), ('number', 1), ('forward', 1)]
             sample = r.recognize_sphinx(audio).lower()
         # Просто отображаем текст что сказал пользователь
         print("Вы сказали: " + sample)
@@ -80,10 +81,11 @@ def get_confirmation():
 
 
 # варианты команды ввода нномера коробки
-box_com = ['show box', 'box number', 'showbox', 'show number', 'show', 'books', 'books number', 'number', 'phone']
+box_com = ['show box', 'box number', 'showbox', 'show number', 'show', 'books', 'books number',
+           'number', 'phone', ' go']
 
 # варианты номеров
-num_coms = [['1', 'one'], ['2', 'two', 'too', 'to'], ['3', 'tree', 'three', 'free'],
+num_coms = [['1', 'one', 'won'], ['2', 'two', 'too', 'to'], ['3', 'tree', 'three', 'free'],
             ['4', 'four', 'for']]
 
 # варианты согласия
@@ -93,7 +95,6 @@ correct_com = ['right', 'yes', 'correct']
 wrong_com = ['wrong', 'no', 'not right', 'not correct']
 
 if __name__ == '__main__':
-    
     ap = argparse.ArgumentParser()
     ap.add_argument('-r', "--recognizer", type=str, default='sphinx',
                     help="recognizer type, google or sphinx")
