@@ -10,7 +10,7 @@ talk("wuuuuf")
 ap = argparse.ArgumentParser()
 ap.add_argument('-r', "--recognizer", type=str, default='sphinx',
                 help="recognizer type, google or sphinx")
-ap.add_argument("-n", "--name", type=str, default="red",
+ap.add_argument("-n", "--name", type=str, default="pi5",
                 help="chose server name")
 args = vars(ap.parse_args())
 
@@ -31,10 +31,11 @@ while True:
                 box_n = i + 1
                 break
         client.send(str(box_n))
+        client.send('forward')
         talk('guv ' * box_n)
 
     # обработка команды искать
-    elif ' go ' in sample:
+    elif ' go' in sample:
         client.send("forward")
         talk('вперёд')
         complete = 0
