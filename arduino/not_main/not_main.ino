@@ -20,6 +20,15 @@ void loop() {
   if (Serial.available()) {
     com = Serial.read();
     switch (com) {
+    case 3:
+      move(1);
+      delay(10000);
+      stop();
+      turn(1);
+      move(1);
+      delay(5000);
+      stop();
+      turn(0);
     case 5:
       turn(1);
       delay(300);
@@ -87,27 +96,15 @@ int get_us(int trig, int echo) {
 bool next_box(int lim) {
   bool dir = 1;
   while ((get_us(US, US + 1) <= lim) or (get_us(US2, US2 + 1) <= lim)){
-    digitalWrite(FIRST_M, !dir);
-    digitalWrite(FIRST_M + 1, dir);
-    digitalWrite(FIRST_M + 2, dir);
-    digitalWrite(FIRST_M + 3, !dir);
-//    Serial.write(get_us(US, US + 1));
+    move(dir);
   }
   stop();
-//  Serial.print('a');
   sound(1);
   while (get_us(US, US + 1) > lim or get_us(US2, US2 + 1) > lim) {
-    digitalWrite(FIRST_M, !dir);
-    digitalWrite(FIRST_M + 1, dir);
-    digitalWrite(FIRST_M + 2, dir);
-    digitalWrite(FIRST_M + 3, !dir);
-//    Serial.write(get_us(US, US + 1));
+    move(dir);
   }
-  delay(0);
   stop();
   sound(1);
-  
-  //  delay(100);
   return 1;
 }
 
@@ -115,19 +112,13 @@ bool back(byte n, byte lim){
   bool dir = 0;
   for (n = n - 1; n > 0; n--){
     while ((get_us(US, US + 1) <= lim) or (get_us(US2, US2 + 1) <= lim)) {
-      digitalWrite(FIRST_M, !dir);
-      digitalWrite(FIRST_M + 1, dir);
-      digitalWrite(FIRST_M + 2, dir);
-      digitalWrite(FIRST_M + 3, !dir);
+      move(dir);
     }
     turn(1);
     stop();
     sound(1);
     while (get_us(US, US + 1) > lim or get_us(US2, US2 + 1) > lim) {
-      digitalWrite(FIRST_M, !dir);
-      digitalWrite(FIRST_M + 1, dir);
-      digitalWrite(FIRST_M + 2, dir);
-      digitalWrite(FIRST_M + 3, !dir);
+      move(dir);
     }
     
     stop();
@@ -135,10 +126,7 @@ bool back(byte n, byte lim){
     turn(1);
   }
   while ((get_us(US, US + 1) <= lim) or (get_us(US2, US2 + 1) <= lim)) {
-      digitalWrite(FIRST_M, !dir);
-      digitalWrite(FIRST_M + 1, dir);
-      digitalWrite(FIRST_M + 2, dir);
-      digitalWrite(FIRST_M + 3, !dir);
+    move(dir);
   }
   sound(1);
   stop();
@@ -154,25 +142,22 @@ bool sound(byte n) {
 }
 
 bool turn(bool dir){
-  analogWrite(FIRST_M, !dir * 128);
-  analogWrite(FIRST_M + 1, dir * 128);
-  analogWrite(FIRST_M + 2, !dir * 128);
-  analogWrite(FIRST_M + 3, dir * 128);
+  analogWrite(FIRST_M, !dir * 256);
+  analogWrite(FIRST_M + 1, dir * 256);
+  analogWrite(FIRST_M + 2, !dir * 256);
+  analogWrite(FIRST_M + 3, dir * 256);
   if (dir) while(digitalRead(2)){}
   else while(digitalRead(14)){}
   stop();
 }
 
-//bool turn(int ms){
-//  bool dir = ms > 0;
-//  ms = abs(ms);
-//  digitalWrite(4, !dir);
-//  digitalWrite(5, dir);
-//  digitalWrite(6, !dir);
-//  digitalWrite(7, dir);
-//  delay(ms);
-//  stop();
-//}
+
+bool move(bool dir){
+  digitalWrite(FIRST_M, !dir);
+  digitalWrite(FIRST_M + 1, dir);
+  digitalWrite(FIRST_M + 2, dir);
+  digitalWrite(FIRST_M + 3, !dir);
+}
 
 void stop(){
   digitalWrite(FIRST_M, 0);
